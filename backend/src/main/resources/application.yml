@@ -13,7 +13,7 @@ spring:
     open-in-view: false
 
 server:
-  port: 8080
+  port: ${PORT:8080}
 
 burgo:
   # The restaurant's own time zone, used to decide whether a booking is "in the past".
