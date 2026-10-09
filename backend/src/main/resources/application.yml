@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: burgo-api
+  # Zero-setup default: an in-memory H2 database, re-seeded with sample data on every start.
+  # Run with  --spring.profiles.active=postgres  to use PostgreSQL instead (see application-postgres.yml).
+  datasource:
+    url: jdbc:h2:mem:burgo;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+server:
+  port: 8080
+
+burgo:
+  # The restaurant's own time zone, used to decide whether a booking is "in the past".
+  timezone: Asia/Kolkata
+  cors:
+    allowed-origins: http://localhost:3000
+  gemini:
+    # Optional. Without a key the assistant answers from the menu and FAQ only.
+    api-key: ${GEMINI_API_KEY:}
+    model: gemini-3.8-flash
