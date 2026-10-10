@@ -3,7 +3,7 @@
 A sample fast-food restaurant ("Burgo Smash Kitchen") with a Java backend for the business rules and a Next.js
 frontend with scroll animations. All the data (menu, prices, address) is made up and loads automatically.
 
-**Live demo:** https://burgo-restaurant-ai-assistant.vercel.app
+**Live demo:** _add your Vercel link here_
 
 - **Backend:** Spring Boot 3.5, Java 21, JPA, in-memory H2 by default, PostgreSQL for deployment.
 - **Frontend:** Next.js 16, React 19, TypeScript, Motion for animation.
@@ -11,20 +11,6 @@ frontend with scroll animations. All the data (menu, prices, address) is made up
   seat counts, and a chat assistant that answers only from the restaurant's own data.
 
 ![Burgo home page](docs/hero.png)
-
-## Screenshots
-
-**Scroll-driven hero.** The burger pulls apart layer by layer as you scroll.
-
-![The burger pulled apart into labelled layers](docs/hero-exploded.png)
-
-**Menu with filters.** Category chips, a veg-only switch, spice levels and a cart.
-
-![Menu cards with category filters](docs/menu.png)
-
-**Chat assistant.** Answers from the menu and FAQ, and hands off to staff when it isn't sure.
-
-![Chat assistant answering questions](docs/chat.png)
 
 ## Run it locally
 
