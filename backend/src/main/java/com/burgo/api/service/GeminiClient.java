@@ -1,5 +1,6 @@
 package com.burgo.api.service;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -8,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
@@ -25,12 +27,16 @@ class GeminiClient {
     private static final String ENDPOINT =
             "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent";
 
-    private final RestClient http = RestClient.create();
+    private final RestClient http;
     private final String apiKey;
     private final String model;
 
     GeminiClient(@Value("${burgo.gemini.api-key:}") String apiKey,
                  @Value("${burgo.gemini.model:gemini-3.8-flash}") String model) {
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        requestFactory.setConnectTimeout(Duration.ofSeconds(3));
+        requestFactory.setReadTimeout(Duration.ofSeconds(8));
+        this.http = RestClient.builder().requestFactory(requestFactory).build();
         this.apiKey = apiKey == null ? "" : apiKey.trim();
         this.model = model;
         log.info("Gemini fallback {} (model {})", enabled() ? "ENABLED" : "disabled: GEMINI_API_KEY not set", model);
