@@ -10,7 +10,21 @@ frontend with scroll animations. All the data (menu, prices, address) is made up
 - **What it does:** menu with filters, cart and ordering (pickup or delivery), table reservations with live
   seat counts, and a chat assistant that answers only from the restaurant's own data.
 
-<!-- Add a screenshot or short GIF of the site and the chat here: ![Burgo](docs/screenshot.png) -->
+![Burgo home page](docs/hero.png)
+
+## Screenshots
+
+**Scroll-driven hero.** The burger pulls apart layer by layer as you scroll.
+
+![The burger pulled apart into labelled layers](docs/hero-exploded.png)
+
+**Menu with filters.** Category chips, a veg-only switch, spice levels and a cart.
+
+![Menu cards with category filters](docs/menu.png)
+
+**Chat assistant.** Answers from the menu and FAQ, and hands off to staff when it isn't sure.
+
+![Chat assistant answering questions](docs/chat.png)
 
 ## Run it locally
 
@@ -135,8 +149,14 @@ Vercel hosts only the frontend, so the backend and database go elsewhere. One se
 | `DB_PASSWORD` | your database password |
 | `GEMINI_API_KEY` | optional |
 | `SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE` | `5` |
+| `BURGO_CORS_ALLOWED_ORIGINS` | `https://<your-vercel-domain>` (comma-separated if more than one) |
 
-The Dockerfile starts the app with the `postgres` profile. Tables are created automatically and the sample
+`BURGO_CORS_ALLOWED_ORIGINS` is required. Browsers send an `Origin` header on POST requests (chat, orders,
+bookings), and the backend rejects origins that aren't listed. Without it the menu loads but chat, ordering and
+booking fail with a generic "something went wrong".
+
+The Dockerfile pulls its base images from the AWS public mirror of Docker Hub, because shared build servers can
+hit Docker Hub's rate limit. It starts the app with the `postgres` profile. Tables are created automatically and the sample
 restaurant is seeded on first start. Check `https://<backend-domain>/api/r/burgo/menu` returns JSON.
 
 **Frontend variables (Vercel)**
